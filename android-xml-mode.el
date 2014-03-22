@@ -1,4 +1,4 @@
-;;; android-xml-mode.el --- Partial support for nxml-mode in Android projects
+;;; android-xml-mode.el --- Android support for nxml-mode
 ;;
 
 ;; Copyright (C) 2014 Mozgin Dmitry
@@ -20,7 +20,7 @@
 
 ;;; Commentary:
 ;;
-;; This file minimal or partial support to nxml-mode for android xml
+;; This file minimal or partial support for nxml-mode for android xml
 ;; files. (currently only AndroidManifest.xml)
 ;; 
 
