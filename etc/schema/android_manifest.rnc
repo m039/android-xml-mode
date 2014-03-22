@@ -1,0 +1,543 @@
+namespace android = "http://schemas.android.com/apk/res/android"
+
+start = manifest
+
+#
+# что такое xsd?
+#
+
+manifest = element manifest {
+   attribute package { text }
+ & attribute android:versionCode { xsd:int }
+ & attribute android:versionName { string }
+ & attribute android:sharedUserId { string }?
+ & attribute android:sharedUserLabel { xsd:int }?
+ & attribute android:installLocation { "auto" | "internalOnly" | "preferExternal" }?
+ & application
+ & uses-sdk?
+ & compatible-screens?
+ & instrumentation?
+ & permission?
+ & permission-group?
+ & permission-tree?
+ & uses-configuration?
+ & supports-gl-texture?
+ & uses-feature*
+ & uses-permission*
+}
+
+#
+# application
+#
+
+application = element application {
+   attribute android:allowTaskReparenting { "true" | "false" }?
+ & attribute android:allowBackup { "true" | "false" }?
+ & attribute android:backupAgent { text }?
+ & attribute android:debuggable { "true" | "false" }?
+ & attribute android:description { text }?
+ & attribute android:enabled { "true" | "false" }?
+ & attribute android:hasCode { "true" | "false" }?
+ & attribute android:hardwareAccelerated { "true" | "false" }?
+ & attribute android:icon { text }?
+ & attribute android:killAfterRestore { "true" | "false" }?
+ & attribute android:largeHeap { "true" | "false" }?
+ & attribute android:label { text }?
+ & attribute android:logo { text }?
+ & attribute android:manageSpaceActivity { text }?
+ & attribute android:name { text }?
+ & attribute android:permission { text }?
+ & attribute android:persistent { "true" | "false" }?
+ & attribute android:process { text }?
+ & attribute android:restoreAnyVersion { "true" | "false" }?
+ & attribute android:requiredAccountType { text }?
+ & attribute android:restrictedAccountType { text }?
+ & attribute android:supportsRtl { "true" | "false" }?
+ & attribute android:taskAffinity { text }?
+ & attribute android:testOnly { "true" | "false" }?
+ & attribute android:theme { text }?
+ & attribute android:uiOptions { "none" | "splitActionBarWhenNarrow" }?
+ & attribute android:vmSafeMode { "true" | "false" }?
+ & activity*
+ & activity-alias*
+ & meta-data*
+ & service*
+ & receiver*
+ & provider*
+ & uses-library*
+}
+
+#
+# applications childs
+#
+
+activity = element activity {
+   attribute android:allowTaskReparenting { "true" | "false" }?
+ & attribute android:alwaysRetainTaskState { "true" | "false" }?
+ & attribute android:clearTaskOnLaunch { "true" | "false" }?
+ & attribute android:configChanges {
+    "mcc"
+  | "mnc"
+  | "locale"
+  | "touchscreen"
+  | "keyboard"
+  | "keyboardHidden"
+  | "navigation"
+  | "screenLayout"
+  | "fontScale"
+  | "uiMode"
+  | "orientation"
+  | "screenSize"
+  | "smallestScreenSize"
+  | text                        # TODO: add embedded OR
+ }?
+ & attribute android:enabled { "true" | "false" }?
+ & attribute android:excludeFromRecents { "true" | "false" }?
+ & attribute android:exported { "true" | "false" }?
+ & attribute android:finishOnTaskLaunch { "true" | "false" }?
+ & attribute android:hardwareAccelerated { "true" | "false" }?
+ & attribute android:icon { text }?
+ & attribute android:label { text }?
+ & attribute android:launchMode {
+    "multiple"
+  | "singleTop"
+  | "singleTask"
+  | "singleInstance"
+  | text                        # TODO: add embedded OR
+ }?
+ & attribute android:multiprocess { "true" | "false" }?
+ & attribute android:name { text }?
+ & attribute android:noHistory { "true" | "false" }?
+ & attribute android:parentActivityName { text }?
+ & attribute android:permission { text }?
+ & attribute android:process { text }?
+ & attribute android:screenOrientation {
+    "unspecified"
+  | "behind"
+  | "landscape"
+  | "portrait"
+  | "reverseLandscape"
+  | "reversePortrait"
+  | "sensorLandscape"
+  | "sensorPortrait"
+  | "userLandscape"
+  | "userPortrait"
+  | "sensor"
+  | "fullSensor"
+  | "nosensor"
+  | "user"
+  | "fullUser"
+  | "locked"
+ }?
+ & attribute android:stateNotNeeded { "true" | "false" }?
+ & attribute android:taskAffinity { text }?
+ & attribute android:theme { text }?
+ & attribute android:uiOptions { "none" | "splitActionBarWhenNarrow" }?
+ & attribute android:windowSoftInputMode {
+    "stateUnspecified"
+  | "stateUnchanged"
+  | "stateHidden"
+  | "stateAlwaysHidden"
+  | "stateVisible"
+  | "stateAlwaysVisible"
+  | "adjustUnspecified"
+  | "adjustResize"
+  | "adjustPan"
+ }?
+ & intent-filter*
+ & meta-data*
+}
+
+activity-alias = element activity-alias {
+   attribute android:enabled { "true" | "false" }?
+ & attribute android:exported { "true" | "false" }?
+ & attribute android:icon { text }?
+ & attribute android:label { text }?
+ & attribute android:name { text }?
+ & attribute android:permission { text }?
+ & attribute android:targetActivity { text }?
+ & intent-filter*
+ & meta-data*
+}
+
+meta-data = element meta-data {
+   attribute android:name { text }?
+ & attribute android:resource { text }?
+ & attribute android:value { text }?
+}
+
+service = element service {
+   attribute android:name { text }
+ & attribute android:enabled { "true" | "false" }?
+ & attribute android:exported { "true" | "false" }?
+ & attribute android:icon { text }?
+ & attribute android:isolatedProcess { "true" | "false" }?
+ & attribute android:label { text }?
+ & attribute android:permission { text }?
+ & attribute android:process { text }?
+ & intent-filter*
+ & meta-data*
+}
+
+receiver = element receiver {
+   attribute android:enabled { "true" | "false" }?
+ & attribute android:exported { "true" | "false" }?
+ & attribute android:icon { text }?
+ & attribute android:label { text }?
+ & attribute android:name { text }?
+ & attribute android:permission { text }?
+ & attribute android:process { text }?
+ & intent-filter*
+ & meta-data*
+}
+
+provider = element provider {
+   attribute android:authorities { text }? # TODO: separated list
+ & attribute android:enabled { "true" | "false" }?
+ & attribute android:exported { "true" | "false" }?
+ & attribute android:grantUriPermissions { "true" | "false" }?
+ & attribute android:icon { text }?
+ & attribute android:initOrder { xsd:int }?
+ & attribute android:label { text }?
+ & attribute android:multiprocess { "true" | "false" }?
+ & attribute android:name { text }?
+ & attribute android:permission { text }?
+ & attribute android:process { text }?
+ & attribute android:readPermission { text }?
+ & attribute android:syncable { "true" | "false" }?
+ & attribute android:writePermission { text }?
+ & meta-data*
+ & grant-uri-permission*
+ & path-permission*
+}
+
+uses-library = element uses-library {
+   attribute android:name { text }?
+ & attribute android:required { "true" | "false" }?
+}
+
+# inner nodes
+
+intent-filter = element intent-filter {
+   attribute android:icon { text }?
+ & attribute android:label { text }?
+ & attribute android:priority { xsd:int }?
+ & action+
+ & category*
+ & data*
+}
+
+action = element action {
+   attribute android:name { text }
+}
+
+category = element category {
+   attribute android:name { text }
+   # TODO: list of categories
+}
+
+data = element data {
+   attribute android:scheme { text }?
+ & attribute android:host { text }?
+ & attribute android:port { text }?
+ & attribute android:path { text }?
+ & attribute android:pathPattern { text }?
+ & attribute android:pathPrefix { text }?
+ & attribute android:mimeType { text }?
+}
+
+grant-uri-permission = element grant-uri-permission {
+   attribute android:path { text }?
+ & attribute android:pathPattern { text }?
+ & attribute android:pathPrefix { text }?
+}
+
+path-permission = element path-permission  {
+   attribute android:path { text }?
+ & attribute android:pathPrefix { text }?
+ & attribute android:pathPattern { text }?
+ & attribute android:permission { text }?
+ & attribute android:readPermission { text }?
+ & attribute android:writePermission { text }?
+}
+
+#
+# Others
+#
+
+compatible-screens = element compatible-screens {
+   element screen {
+      attribute android:screenSize { "small" | "normal" | "large" | "xlarge" }?
+    & attribute android:screenDensity { "ldpi" | "mdpi" | "hdpi" | "xhdpi" | "xxhdpi" | "480" }?
+   }+
+}
+
+instrumentation = element instrumentation {
+   attribute android:functionalTest { "true" | "false" }?
+ & attribute android:handleProfiling { "true" | "false" }?
+ & attribute android:icon { text }?
+ & attribute android:label { text }?
+ & attribute android:name { text }?
+ & attribute android:targetPackage { text }?
+}
+
+permission = element permission {
+   attribute android:description { text }?
+ & attribute android:icon { text }?
+ & attribute android:label { text }?
+ & attribute android:name { text }?
+ & attribute android:permissionGroup { text }?
+ & attribute android:protectionLevel { "normal" | "dangerous" | "signature" | "signatureOrSystem" }?
+}
+
+permission-group = element permission-group {
+   attribute android:description { text }?
+ & attribute android:icon { text }?
+ & attribute android:label { text }?
+ & attribute android:name { text }?
+}
+
+permission-tree = element permission-tree {
+   attribute android:name { text }?
+ & attribute android:label { text }?
+ & attribute android:icon { text }?
+}
+
+supports-gl-texture = element supports-gl-texture { empty }
+
+supports-screens = element supports-screens {
+   attribute android:resizeable {"true"| "false"}?
+ & attribute android:smallScreens {"true" | "false"}?
+ & attribute android:normalScreens {"true" | "false"}?
+ & attribute android:largeScreens {"true" | "false"}?
+ & attribute android:xlargeScreens {"true" | "false"}?
+ & attribute android:anyDensity {"true" | "false"}?
+ & attribute android:requiresSmallestWidthDp { xsd:int }?
+ & attribute android:compatibleWidthLimitDp { xsd:int }?
+ & attribute android:largestWidthLimitDp { xsd:int }?
+}
+
+uses-configuration = element uses-configuration {
+   attribute android:reqFiveWayNav { "true" | "false" }?
+ & attribute android:reqHardKeyboard { "true" | "false" }?
+ & attribute android:reqKeyboardType { "undefined" | "nokeys" | "qwerty" | "twelvekey" }?
+ & attribute android:reqNavigation { "undefined" | "nonav" | "dpad" | "trackball" | "wheel" }?
+ & attribute android:reqTouchScreen { "undefined" | "notouch" | "stylus" | "finger" }?
+}
+
+uses-feature = element uses-feature {
+   attribute android:name {
+      # hardware features
+      "android.hardware.audio.low_latency"
+    | "android.hardware.bluetooth"
+    | "android.hardware.bluetooth_le"
+    | "android.hardware.camera"
+    | "android.hardware.camera.autofocus"
+    | "android.hardware.camera.flash"
+    | "android.hardware.camera.front"
+    | "android.hardware.camera.any"
+    | "android.hardware.consumerir"
+    | "android.hardware.location"
+    | "android.hardware.location.network"
+    | "android.hardware.location.gps"
+    | "android.hardware.microphone"
+    | "android.hardware.nfc"
+    | "android.hardware.nfc.hce"
+    | "android.hardware.sensor.accelerometer"
+    | "android.hardware.sensor.barometer"
+    | "android.hardware.sensor.compass"
+    | "android.hardware.sensor.gyroscope"
+    | "android.hardware.sensor.light"
+    | "android.hardware.sensor.proximity"
+    | "android.hardware.sensor.stepcounter"
+    | "android.hardware.sensor.stepdetector"
+    | "android.hardware.screen.landscape"
+    | "android.hardware.screen.portrait"
+    | "android.hardware.screen.portrait"
+    | "android.hardware.telephony"
+    | "android.hardware.telephony.cdma"
+    | "android.hardware.telephony.gsm"
+    | "android.hardware.type.television"
+    | "android.hardware.faketouch"
+    | "android.hardware.touchscreen"
+    | "android.hardware.faketouch.multitouch.distinct"
+    | "android.hardware.touchscreen.multitouch.distinct,"
+    | "android.hardware.faketouch.multitouch.jazzhand"
+    | "android.hardware.touchscreen.multitouch.jazzhand,"
+    | "android.hardware.touchscreen"
+    | "android.hardware.touchscreen.multitouch"
+    | "android.hardware.touchscreen.multitouch.distinct"
+    | "android.hardware.touchscreen.multitouch.jazzhand"
+    | "android.hardware.usb.host"
+    | "android.hardware.usb.accessory"
+    | "android.hardware.wifi"
+    | "android.hardware.wifi.direct"
+      # software features
+    | "android.software.app_widgets"
+    | "android.software.device_admin"
+    | "android.software.home_screen"
+    | "android.software.input_methods"
+    | "android.software.live_wallpaper"
+    | "android.software.sip"
+    | "android.software.sip.voip"
+   }
+ & attribute android:required { "true" | "false" }?
+ & attribute android:glEsVersion { xsd:int }?
+}
+
+uses-permission = element uses-permission {
+   attribute android:name {
+      "android.permission.ACCESS_CHECKIN_PROPERTIES"
+    | "android.permission.ACCESS_COARSE_LOCATION"
+    | "android.permission.ACCESS_FINE_LOCATION"
+    | "android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"
+    | "android.permission.ACCESS_MOCK_LOCATION"
+    | "android.permission.ACCESS_NETWORK_STATE"
+    | "android.permission.ACCESS_SURFACE_FLINGER"
+    | "android.permission.ACCESS_WIFI_STATE"
+    | "android.permission.ACCOUNT_MANAGER"
+    | "com.android.voicemail.permission.ADD_VOICEMAIL"
+    | "android.permission.AUTHENTICATE_ACCOUNTS"
+    | "android.permission.BATTERY_STATS"
+    | "android.permission.BIND_ACCESSIBILITY_SERVICE"
+    | "android.permission.BIND_APPWIDGET"
+    | "android.permission.BIND_DEVICE_ADMIN"
+    | "android.permission.BIND_INPUT_METHOD"
+    | "android.permission.BIND_NFC_SERVICE"
+    | "android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+    | "android.permission.BIND_PRINT_SERVICE"
+    | "android.permission.BIND_REMOTEVIEWS"
+    | "android.permission.BIND_TEXT_SERVICE"
+    | "android.permission.BIND_VPN_SERVICE"
+    | "android.permission.BIND_WALLPAPER"
+    | "android.permission.BLUETOOTH"
+    | "android.permission.BLUETOOTH_ADMIN"
+    | "android.permission.BLUETOOTH_PRIVILEGED"
+    | "android.permission.BRICK"
+    | "android.permission.BROADCAST_PACKAGE_REMOVED"
+    | "android.permission.BROADCAST_SMS"
+    | "android.permission.BROADCAST_STICKY"
+    | "android.permission.BROADCAST_WAP_PUSH"
+    | "android.permission.CALL_PHONE"
+    | "android.permission.CALL_PRIVILEGED"
+    | "android.permission.CAMERA"
+    | "android.permission.CAPTURE_AUDIO_OUTPUT"
+    | "android.permission.CAPTURE_SECURE_VIDEO_OUTPUT"
+    | "android.permission.CAPTURE_VIDEO_OUTPUT"
+    | "android.permission.CHANGE_COMPONENT_ENABLED_STATE"
+    | "android.permission.CHANGE_CONFIGURATION"
+    | "android.permission.CHANGE_NETWORK_STATE"
+    | "android.permission.CHANGE_WIFI_MULTICAST_STATE"
+    | "android.permission.CHANGE_WIFI_STATE"
+    | "android.permission.CLEAR_APP_CACHE"
+    | "android.permission.CLEAR_APP_USER_DATA"
+    | "android.permission.CONTROL_LOCATION_UPDATES"
+    | "android.permission.DELETE_CACHE_FILES"
+    | "android.permission.DELETE_PACKAGES"
+    | "android.permission.DEVICE_POWER"
+    | "android.permission.DIAGNOSTIC"
+    | "android.permission.DISABLE_KEYGUARD"
+    | "android.permission.DUMP"
+    | "android.permission.EXPAND_STATUS_BAR"
+    | "android.permission.FACTORY_TEST"
+    | "android.permission.FLASHLIGHT"
+    | "android.permission.FORCE_BACK"
+    | "android.permission.GET_ACCOUNTS"
+    | "android.permission.GET_PACKAGE_SIZE"
+    | "android.permission.GET_TASKS"
+    | "android.permission.GET_TOP_ACTIVITY_INFO"
+    | "android.permission.GLOBAL_SEARCH"
+    | "android.permission.HARDWARE_TEST"
+    | "android.permission.INJECT_EVENTS"
+    | "android.permission.INSTALL_LOCATION_PROVIDER"
+    | "android.permission.INSTALL_PACKAGES"
+    | "com.android.launcher.permission.INSTALL_SHORTCUT"
+    | "android.permission.INTERNAL_SYSTEM_WINDOW"
+    | "android.permission.INTERNET"
+    | "android.permission.KILL_BACKGROUND_PROCESSES"
+    | "android.permission.LOCATION_HARDWARE"
+    | "android.permission.MANAGE_ACCOUNTS"
+    | "android.permission.MANAGE_APP_TOKENS"
+    | "android.permission.MANAGE_DOCUMENTS"
+    | "android.permission.MASTER_CLEAR"
+    | "android.permission.MEDIA_CONTENT_CONTROL"
+    | "android.permission.MODIFY_AUDIO_SETTINGS"
+    | "android.permission.MODIFY_PHONE_STATE"
+    | "android.permission.MOUNT_FORMAT_FILESYSTEMS"
+    | "android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+    | "android.permission.NFC"
+    | "android.permission.PERSISTENT_ACTIVITY"
+    | "android.permission.PROCESS_OUTGOING_CALLS"
+    | "android.permission.READ_CALENDAR"
+    | "android.permission.READ_CALL_LOG"
+    | "android.permission.READ_CONTACTS"
+    | "android.permission.READ_EXTERNAL_STORAGE"
+    | "android.permission.READ_FRAME_BUFFER"
+    | "com.android.browser.permission.READ_HISTORY_BOOKMARKS"
+    | "android.permission.READ_INPUT_STATE"
+    | "android.permission.READ_LOGS"
+    | "android.permission.READ_PHONE_STATE"
+    | "android.permission.READ_PROFILE"
+    | "android.permission.READ_SMS"
+    | "android.permission.READ_SOCIAL_STREAM"
+    | "android.permission.READ_SYNC_SETTINGS"
+    | "android.permission.READ_SYNC_STATS"
+    | "android.permission.READ_USER_DICTIONARY"
+    | "android.permission.REBOOT"
+    | "android.permission.RECEIVE_BOOT_COMPLETED"
+    | "android.permission.RECEIVE_MMS"
+    | "android.permission.RECEIVE_SMS"
+    | "android.permission.RECEIVE_WAP_PUSH"
+    | "android.permission.RECORD_AUDIO"
+    | "android.permission.REORDER_TASKS"
+    | "android.permission.RESTART_PACKAGES"
+    | "android.permission.SEND_RESPOND_VIA_MESSAGE"
+    | "android.permission.SEND_SMS"
+    | "android.permission.SET_ACTIVITY_WATCHER"
+    | "com.android.alarm.permission.SET_ALARM"
+    | "android.permission.SET_ALWAYS_FINISH"
+    | "android.permission.SET_ANIMATION_SCALE"
+    | "android.permission.SET_DEBUG_APP"
+    | "android.permission.SET_ORIENTATION"
+    | "android.permission.SET_POINTER_SPEED"
+    | "android.permission.SET_PREFERRED_APPLICATIONS"
+    | "android.permission.SET_PROCESS_LIMIT"
+    | "android.permission.SET_TIME"
+    | "android.permission.SET_TIME_ZONE"
+    | "android.permission.SET_WALLPAPER"
+    | "android.permission.SET_WALLPAPER_HINTS"
+    | "android.permission.SIGNAL_PERSISTENT_PROCESSES"
+    | "android.permission.STATUS_BAR"
+    | "android.permission.SUBSCRIBED_FEEDS_READ"
+    | "android.permission.SUBSCRIBED_FEEDS_WRITE"
+    | "android.permission.SYSTEM_ALERT_WINDOW"
+    | "android.permission.TRANSMIT_IR"
+    | "com.android.launcher.permission.UNINSTALL_SHORTCUT"
+    | "android.permission.UPDATE_DEVICE_STATS"
+    | "android.permission.USE_CREDENTIALS"
+    | "android.permission.USE_SIP"
+    | "android.permission.VIBRATE"
+    | "android.permission.WAKE_LOCK"
+    | "android.permission.WRITE_APN_SETTINGS"
+    | "android.permission.WRITE_CALENDAR"
+    | "android.permission.WRITE_CALL_LOG"
+    | "android.permission.WRITE_CONTACTS"
+    | "android.permission.WRITE_EXTERNAL_STORAGE"
+    | "android.permission.WRITE_GSERVICES"
+    | "com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"
+    | "android.permission.WRITE_PROFILE"
+    | "android.permission.WRITE_SECURE_SETTINGS"
+    | "android.permission.WRITE_SETTINGS"
+    | "android.permission.WRITE_SMS"
+    | "android.permission.WRITE_SOCIAL_STREAM"
+    | "android.permission.WRITE_SYNC_SETTINGS"
+    | "android.permission.WRITE_USER_DICTIONARY"
+   }
+   & attribute android:maxSdkVersion { xsd:int }?
+}
+
+uses-sdk = element uses-sdk {
+   attribute android:minSdkVersion { xsd:int }?
+ & attribute android:maxSdkVersion { xsd:int }?
+ & attribute android:targetSdkVersion { xsd:int }?
+}
